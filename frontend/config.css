@@ -1,0 +1,170 @@
+@import "colors.css";
+body{
+    background-color: var(--backgroundColor);
+    padding-top: 25px;
+    font-family: Arial;
+}
+/* table, th, td{
+    border: 1px solid yellow;
+    border-radius: 25px;
+    margin: 50px auto; 
+    width: 60%;
+
+    
+} */
+
+#toggleDarkMode>img {
+    width: 2ch;
+    height: 2ch;
+    filter: invert(1);
+}
+
+#toggleDarkMode {
+    border: 2px solid var(--buttonBorder);
+    padding: 10px;
+    transition: background-color 1.0s;
+}
+
+.toast {
+    position: fixed;
+    min-width: 200px;
+    margin-left: -100px;
+    text-align: center;
+    padding: 20px;
+    border-radius: 20px;
+    background-color : var(--yellowAccent);
+    z-index: 20;
+    left: 50%;
+    bottom: -300px;
+    box-shadow: 0px 10px 15px 2px #00000071;
+    transition: 0.3s;
+}
+
+.options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 20fr 1fr 1fr;
+}
+
+#toggle {
+    border: none;
+    font-weight: bold;
+    padding: 10px;
+    background-color: rgb(43, 104, 41);
+    color: white;
+    transition: background-color 0.4s;   
+}
+
+.header{
+    color: var(--yellowAccent);
+}
+
+#optionHeader {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row: 1 / span 1;
+    text-align: center;
+}
+
+#jsonHeader {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row: 1 / span 1;
+    text-align: center;
+}
+
+#configDisplay {
+    background-color: var(--backgroundColor);
+    grid-column: 1 2;
+    grid-row: 2 / span 1;
+}
+
+
+
+#jsonText {
+    background-color: var(--inputBackgroundColor);
+    color: var(--placeholder);
+}
+
+/* tbody{
+    width: 500px;
+}
+th{
+    border: 0px;
+    border-radius: 0px;
+} */
+#subheader{
+    color: var(--navText);
+    /* padding: 0%; */
+}
+#settinggroup{
+    color: var(--placeholder);
+    /* padding: 1% 1%; */
+}
+/* label{
+    padding: 1% 1%;
+}
+input{
+    padding: 1% 1%;
+} */
+
+tr{
+    background-color: var(--topNavColor);
+    color: var(--navText); 
+    
+}
+
+td{
+    background-color: var(--menuColor);
+    color: var(--placeholder);
+    padding-left: 15px;
+    /* border: 0px;
+    padding: 2% 2% 2% 2%;    
+    border-radius: 0px;             */
+}
+
+td input{
+    background-color: var(--inputBackgroundColor);
+    color: var(--placeholder);
+}
+
+
+button{
+    border: 2px solid var(--buttonBorder);
+    border-radius: 8px;
+    color: var(--buttonText);
+    font-size: 14px;
+    text-align: center;
+    cursor: pointer;
+    background-color: var(--buttonBackground); 
+}
+
+button:hover {
+    border-style: none;
+    background-color: var(--buttonHighlight);
+    color: var(--yellowAccent);
+}
+
+button:enabled:active {
+    border: 2px silid var(--buttonBorder);
+    color: lime;
+    background-color: var(--buttonPressed);
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px var(--navColor);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: white;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--yellowAccent);
+}

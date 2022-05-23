@@ -1,0 +1,57 @@
+{
+    "MapConfig": {
+        "MapPath": "./maps/small.geo.json",
+        "DefaultLocation": {
+            "lat": "41.5801",
+            "lon": "-71.4774"
+        },
+        "ZoomOptions": {
+            "DefaultZoom": "8",
+            "MaxZoom": "20",
+            "MinZoom": "4"
+        },
+        "MapStyle": {
+            "color": "#2d7b45",
+            "fillColor": "#76cb94",
+            "fillOpacity": "1.0",
+            "backgroundColor": "#24e5ff",
+            "labelColor": "#ffffff",
+            "weight": "1",
+            "opacity": "1.0"
+        }
+    },
+    "EventConfig": {
+        "EventsPool": [
+            {
+                "Type": "AIS Sensor Failure",
+                "Category": "Equipment",
+                "Description": "None"
+            },
+            {
+                "Type": "AIS Sensor Error",
+                "Category": "Equipment",
+                "Description": "None"
+            },
+            {
+                "Type": "Tropical Storm",
+                "Category": "Weather",
+                "Description": "None"
+            },
+            {
+                "Type": "High Wind Speeds",
+                "Category": "Weather",
+                "Description": "None"
+            },
+            {
+                "Type": "Clear Weather",
+                "Category": "Weather",
+                "Description": "None"
+            },
+            {
+                "Type": "Walked the Plank",
+                "Category": "Personnel",
+                "Description": "None"
+            }
+        ]
+    }
+}

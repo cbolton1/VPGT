@@ -1,0 +1,27 @@
+{
+  "name": "vesselpathgentool",
+  "version": "0.0.1",
+  "description": "A tool to generate convincingly real looking vessel pathing data from publicly available AIS data",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo test",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://kleite1@bitbucket.org/vesselpathgentool/vesselpathgentool.git"
+  },
+  "keywords": [
+    "AI",
+    "vessel",
+    "path"
+  ],
+  "author": "Chris Bolton, Stephen Shea, Kyan Leite, Jacob Coombes",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/vesselpathgentool/vesselpathgentool#readme",
+  "dependencies": {
+    "body-parser": "^1.19.2",
+    "express": "^4.17.3",
+    "xmlhttprequest": "^1.8.0"
+  }
+}

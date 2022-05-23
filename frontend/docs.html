@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="docs.css"/>
+
+        <title>VPGT Documentation</title>
+    </head>
+    <body>
+
+        <!--notes/testing section-->
+        <div class="main">
+            <h1>VPGT User Documentation</h1>
+        </div>
+            
+        <!--SideNav section-->
+        <div class="docsSidenav">    
+            <a href="#about">&ensp;&nbsp; About VPGT</a> <br> <br> 
+            <a href="#start">&ensp;&nbsp; Startup</a> <br> <br>
+            
+            <details>
+                <summary><a href="#UI">User Interface</a></summary>
+                <ol>
+                    <li><a href="#pGen">Path Generation</a></li>
+                    <li><a href="#pSelect">Path Selection</a></li>
+                    <li><a href="#nSelect">Node Selection</a></li>
+                    <li><a href="#plot">Plot Path From File</a></li>
+                    <li><a href="#pManager">Path Manager</a></li>
+                </ol>
+            </details>
+            <br> 
+            <a href="#API">&ensp;&nbsp; API Specification</a> <br> <br>
+            <a href="#dataStruct">&ensp;&nbsp; Path Types</a> <br> <br> 
+            <a href="#preprocessor">&ensp;&nbsp; Preprocessor</a> <br> <br>
+            <a href="#attributions">&ensp;&nbsp; Attributions</a> <br>         
+        </div>
+        <!--end of SideNav section-->
+
+        <!--start of documentation-->
+        <div class = "main">
+
+            <!--about table-->
+            <br id="about"> 
+            <table>
+                <tr>
+                    <th><h1>About</h1></th>
+                </tr>
+                <td>
+                    <p>The Vessel Path Generation Tool is a software system that utilizes machine learning technology to generate artificial AIS pathing data that is plausibly realistic. The primary benefit is to enable -redacted- to test and demo their software systems without resorting to confidential data. In totality, Vessel Path Generation Tool (VPGT) will allow a user to provide path parameters to generate paths with desired features and additionally provide a mechanism to visualize said data. Such a system could save time, money, and potential legal hardships from having to utilize confidential data to test or demo software systems.</p>        
+                </td>
+            </table>
+            <br>
+
+            <!--start section-->
+            <br id="start"> 
+            <table>
+                <tr>
+                    <th><h1>Startup</h1></th>
+                </tr>
+                <td>
+                    <p>Windows: To start the VPGT on Windows, navigate to the root directory of the project and run the VPGT.bat file</p>
+                    <p>Linux: To start the VPGT on Linux, navigate to the root directory of the project and run the VPGT.sh file</p>
+                    <p>From the command line, project startup is the same on all platforms. Navigate to the root directory of the project and execute</p>
+                    <code>node server/server</code>
+                    <p>From here, the server is now running and you can launch the interface by connecting to localhost on port 80 in your browser, or if you are running it remotely the IP address of the server computer</p>
+                </td>
+            </table>
+            <br>
+
+            <!--user interface section-->
+            <br id="UI">
+            <table style="width:100%;">
+                <!--title-->
+                <tr>
+                    <th colspan="2"><h1>User Interface</h1></th>
+                </tr>
+                <!--Path gen menu info-->
+                <tr id="pGen">
+                    <th colspan="2"> <h2>Path Generation Menu</h2></th>
+                </tr>
+                <tr>                        
+                    <td>The <i>Latitude</i> and <i>Longitude</i>  fields correspond to the first point for a generated path.
+                        <br>Coordinates can be either entered manually or via a map click.</td>
+                    <td rowspan="4" style="height: fit-content; width: fit-content;"><img src="images/gifs/generate btn.gif"></td>
+                </tr>
+                <tr><td>Maritime Mobile Service Identity (<i>MMSI</i>) is a unique 9 digit number that is assigned to a vessel.<br>
+                    <br>Speed Over Ground (<i>SOG</i>) is calculated from the boat's speed through the water in addition to other factors <br>that may affect its speed such as current and wind.<br>
+                    <br>Course Over Ground (<i>COG</i>) indicates the direction of the boat's heading relative to the land.<br>
+                    <br><i>Heading</i> represents the angle of the bow of the boat in degrees.<br>
+                    <br><i>Length</i> represents the number of nodes that VPGT will generate along a path.</td></tr>
+                <tr><td>The <i>Likelihood</i> field allows for configuration of the percent chance that a vessel will encounter an event (0-100 range).</td></tr>
+                <tr><td>The <b>Generate</b> button sends the above data to the machine learning model which will return an artificial vessel path.</td></tr>
+                
+                <!--path selection menu info-->
+                <tr id="pSelect">
+                    <th colspan="2"><h2>Path Selection Menu</h2></th>
+                </tr>
+                <tr>
+                    <td>After selecting a singular path, the &nbsp; <img src="images/edit.png" style="filter: invert(1); width: 20px;"> &nbsp; buttton allows for renaming of a path.</td>
+                    <td rowspan="5"><img src="images/gifs/path.gif"></td>
+                </tr>
+                <tr><td>The <i>Path Color</i> and <i>Node Color</i> settings change the color of the path and path nodes respectivly.</td></tr>
+                <tr><td>
+                    The <b>Download Formatted</b> button downloads the path with all the metadata attached to the JSON <br>(Name, Length, Average Speed, Path Color, Node Color, Marker Visibility, and Path events).<br><br>
+                    The <b>Download Raw AIS</b> button downloads the path with only select metadata attached to to the JSON (eg. Name and Path Events.)
+                </td></tr>
+                <tr><td>The <b>Delete</b> button deletes the path from the program.</td></tr>
+                <tr><td>The <b>esc</b> key can be pressed at any time to quickly swap back to the Path Generation menu.</td></tr>
+                <!--Node selection info-->
+                <tr id="nSelect">
+                    <th colspan="2"><h2>Node Selection Menu</h2></th>
+                </tr>
+                <tr>
+                    <td>The <i>event type</i> field allows different event types to be added to the selected node. Custom events can be added through the configuration menu.</td>
+                    <td rowspan="6"><img src="images/gifs/node.gif"></td>
+                </tr>
+                <tr><td>The <i>event description</i> field allows for a description to be added to a new event.</td></tr>
+                <tr><td>The <b>add field</b> button adds user metadata to events. A key is required for the field to save.</td></tr>
+                <tr><td>The <b>add event</b> button saves the event and any other metadata attached to it to the selected node.</td></tr>
+                <tr><td>When a node with an event is clicked on, a button will apear to delete attached event.</td></tr>
+                <tr><td>The <b>esc</b> key can be pressed at any time to quickly swap back to the Path Selection menu</td></tr>
+                <!--upload path info-->
+                <tr id="plot">
+                    <th colspan="2"><h2>Plot Path From File Menu</h2></th>
+                </tr>
+                <tr>
+                    <td>The <b>Choose File</b> button opens the file explorer and allows the upload of a singular JSON file.</td>
+                    <td rowspan="3"><img src="images/gifs/plot from file.gif"></td>
+                </tr>
+                <tr><td>The <b>Load From File</b> button uploads a selected from the local file system onto the map. </td></tr>
+                <tr><td>Multiple files can be dragged and dropped onto the page to be uploaded and plotted onto the map.</td></tr>
+                <!--Path Manager info-->
+                <tr id="pManager">
+                    <th colspan="2"><h2>Path Manager Menu</h2></th>
+                </tr>
+                <tr>
+                    <td><i>Search</i> enables the finding of phrases quickly in either the Whole Table, the <i>Path Name</i> field, or the <i>MMSI</i> field.</td>
+                    <td rowspan="4"><img src="images/gifs/path manager.gif"></td>
+                </tr>
+                <tr><td>The Filter Area allows for numerical constraints to be placed on the paths displayed in the table. These filters can be hidden using the <b>Filter -</b> button.</td></tr>
+                <tr><td>Clicking on any of the headers in the first row of the table can be done to sort the data in either ascending or descending order.<br>
+                        Singular paths can be selected through this menu by clicking anywhere on the respective path's row.<br>Shift + Click allows for multiple paths to be selected.
+                </td></tr>
+                <tr><td>The <b>Delete Selected</b> button deletes all of the selected paths.<br>The <b>Delete All</b> button deletes all the paths loaded onto the tool.</td></tr>
+                <!--selection through path manager-->
+            </table>
+            <br>
+
+            <!--API section-->
+            <br id="API">
+            <table>
+                <tr>
+                    <th><h1>API Specification</h1></th>
+                </tr>
+                <td  style="text-align: left;">
+                    <p>The API for the VPGT currently support 2 different POST commands, genPath and genRandom. The API communicates using POST requests with an <code>application/json</code> content type. To utilize these commands, send a POST request to the corresponding endpoint with your parameters attached to the request body as JSON. Upon completion of running your command, the server will respond with JSON data containing either your generated path or an error message.</p>
+                    <h2>/genPath</h2>
+                    <p>
+                        The <b>genPath</b> command takes in several parameters regarding path generation in the request body as JSON members. <br><br><br>
+                        <code>
+                            // sample /genPath request body<br>
+                            { <br>
+                            &emsp;"latStart": 12, <br>
+                            &emsp;"lonStart": 13, <br>
+                            &emsp;"sog": 14, <br>
+                            &emsp;"cog": 15, <br>
+                            &emsp;"heading": 100, <br>
+                            &emsp;"mmsi": 123456789, <br>
+                            &emsp;"pathlen": 15, <br>
+                            &emsp;"eventpercent": 20 <br>
+                            }
+                        </code>
+                        <br>
+                        <br>
+                        Explanation of fields
+                        <br>
+                        <br>
+                        <b>latstart:</b> the starting latitude to  generate from<br>
+                        <b>lonstart:</b> the starting longitude to generate from<br>
+                        <b>sog:</b> the speed over ground to start with<br>
+                        <b>cog:</b> the course over ground to start with<br>
+                        <b>heading:</b> the heading of the first path node<br>
+                        <b>mmsi:</b>the MMSI the path will take on<br>
+                        <b>pathlen:</b> the number of path nodes that will generate. This value must be between 2 and 32 and integral<br>
+                        <b>eventpercent:</b> the percentage chance a node will generate with an event. This is an integer ranged from 0 to 100<br>
+                        <p>
+                            Upon completion, the path will be returned in our raw AIS format as JSON.
+                        </p>
+                    </p>
+                    <h2>/genRandom</h2>
+                    <p>The <b>genRandom</b> command requires no request body to be passed, the server will simply respond to this endpoint by generating a path with all the fields set to random values. Upon completion, the path will be returned in our raw AIS format as JSON.</p>
+                </td>
+            </table>
+            <br>
+
+            <!--Data Structure section-->
+            <br id="dataStruct">
+            <table>
+                <tr>
+                    <th><h1>Path Types</h1></th>
+                </tr>
+                <td>
+                    <p>There are two types of path JSON files that VPGT can interact with, what we call "raw AIS" paths and "formatted" paths.</p>
+                    <p>
+                        Our raw paths are objects that contain 2 arrays, an array of AIS tuples called PathData, and the PathEvents array containing event data. This is the format generated by the machine learning backend and is based upon
+                        the format of our preprocessor output. This format is lighter weight and contains purely path data.
+                    </p>
+                    <p>
+                        Our formatted paths contain the same two fields as our raw paths but also additional metadata that is used for plotting. These files can also store more than one path within them enabling the user to
+                        save the entire state of the tool, capturing all the paths, their events, their color settings, all to a file that can be reloaded later.
+                    </p>
+                </td>
+            </table>
+            <br>
+
+            <!--Preprocessor section-->
+            <br id="preprocessor">
+            <table id="pt">
+                <tr>
+                    <th><h1>Preprocessor</h1></th>
+                </tr>
+                <td>
+                    <p>The preprocessor can be launched from the main directory with the command: python ./machinelearning/preprocessorControl.py.
+                    This will launch the preprocessor controller which allows editing of settings, and launching of the Preprocessor.</p>
+                    <br>
+                    <p>The options available in the controller command line are outlined below:</p>
+                    <p><b>Source Path:</b> Path to the data that the preprocessor will process. A folder with CSV files.</p>
+                    <p><b>Destination Path:</b> Path that the preprocessor will save data to after processing. Saved as JSON files.</p>
+                    <br>
+                    <p><b>[1]Features to ignore:</b> Features of the CSVs that will be left out of the processed data.</p>
+                    <p><b>[2]Pad data?:</b> If set to true, preprocessor will extend all paths to Max Path Length.</p>
+                    <p><b>[3]Get CSV Stats?:</b> If set to true, the preprocesor will output extra information about the CSVs.</p>
+                    <p><b>[4]Minimum Path Length:</b> The shortest acceptable path length to include in output.</p>
+                    <p><b>[5]Maximum Path Length:</b> The longest acceptable path length to include in output.</p>
+                    <p><b>[6]Output Path Count per CSV:</b> The maximum number of paths to take from each CSV.</p>
+                    <br>
+                    <p><b>[r]Run preprocessor with current settings</b> Runs the preprocessor.</p>
+                    <p><b>[h]Help</b> Shows the help information.</p>
+                    <p><b>[x]Exit </b> Exits the program.</p>
+                </td>
+            </table>
+            <br>
+
+            <!--atributions section-->
+            <br id="attributions">
+            <table>
+                <tr>
+                    <th><h1>Attributions</h1></th>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Several creative commons image assets were utilized from <a href="https://www.flaticon.com" class="attrlink" title="flaticon">www.flaticon.com</a> and this is a compiled list of all the image attributions.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="https://www.flaticon.com/free-icons/edit" title="edit icons" class="attrlink">Edit icons created by Pixel perfect - Flaticon</a><br>
+                        <a href="https://www.flaticon.com/free-icons/exit" title="exit icons" class="attrlink">Exit icons created by The Icon Tree - Flaticon</a><br>
+                        <a href="https://www.flaticon.com/free-icons/settings" title="settings icons" class="attrlink">Settings icons created by Pixel perfect - Flaticon</a><br>
+                        <a href="https://www.flaticon.com/free-icons/info" title="info icons" class="attrlink">Info icons created by Freepik - Flaticon</a><br>
+                        <a href="https://www.flaticon.com/free-icons/dark" title="dark icons" class="attrlink">Dark icons created by adriansyah - Flaticon</a><br>
+                        <a href="https://www.flaticon.com/free-icons/weather" title="weather icons" class="attrlink">Weather icons created by Freepik - Flaticon</a>
+                    </td>
+                </tr>
+
+            </table>
+            <br>            
+        </div>
+
+    </body>    
+</html>

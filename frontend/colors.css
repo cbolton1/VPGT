@@ -1,0 +1,60 @@
+:root {
+
+    /* Dark mode colors */
+    --backgroundColorDark: #191a1a;
+    --inputBackgroundColorDark: #152238;
+    
+    --navColorDark: #152238;
+    --menuColorDark: #132b50;
+    --navTextDark: #ffffff;
+    --placeholderDark: #ffffff;
+    
+    --topNavColorDark: #152238;
+    --topNavHoverDark: #000000;
+
+    --buttonBorderDark: #aff3ff;
+    --buttonBackgroundDark: #00000000;
+    --buttonTextDark: #aff3ff;
+    --buttonHighlightDark: #3b90ff;
+    --buttonPressedDark: #320269;
+
+
+    /* Light mode colors */
+    --backgroundColorLight: #696969;
+    --inputBackgroundColorLight: #f6f7f9;
+
+    --navColorLight: #124592;
+    --menuColorLight: #bdbdbd;
+    --navTextLight: #ffffff;
+    --placeholderLight: #000000;
+
+    --topNavColorLight: #124592;
+    --topNavHoverLight: #323232;
+
+    --buttonBorderLight: #1a73e8;
+    --buttonBackgroundLight: #1a73e8;
+    --buttonTextLight: #ffffff;
+    --buttonHighlightLight: #85baff;
+    --buttonPressedLight: #000000;
+
+
+
+    --backgroundColor: var(--backgroundColorDark);
+    --inputBackgroundColor: var(--inputBackgroundColorDark);
+    
+    --navColor: var(--navColorDark);
+    --menuColor: var(--menuColorDark);
+    --navText: var(--navTextDark);
+    --placeholder: var(--placeholderDark);
+    
+    --topNavColor: var(--topNavColorDark);
+    --topNavHover: var(--topNavHoverDark);
+
+    --buttonBorder: var(--buttonBorderDark);
+    --buttonBackground: var(--buttonBackgroundDark);
+    --buttonText: var(--buttonTextDark);
+    --buttonHighlight: var(--buttonHighlightDark);
+    --buttonPressed: var(--buttonPressedDark);
+
+    --yellowAccent: #ffbb47;
+}

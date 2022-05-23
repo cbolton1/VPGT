@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Vessel Path Generation Tool</title>
+	<link rel="stylesheet" href="lib/leaflet.css" />
+	<link rel="stylesheet" href="index.css" />
+	<script src="lib/leaflet.js"></script>
+	<script src="lib/jquery-3.6.0.min.js"></script>
+	<script src="Path.js"></script>
+	<script src="path-manager.js"></script>
+	<script src="context-menu.js"></script>
+	<script src="common.js"></script>
+	<script src="index.js"></script>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+	<div id="flex-map" class="flex-container" ondragover="dragOverHandler(event);" ondragleave="dragLeaveHandler(event);" ondrop="dropHandler(event);">
+
+
+	
+
+	<!--Overall sidenav bar-->
+	<div id="mySidenav" class="sidenav">
+
+		<!--Top of sidebar controls-->
+		<nav id="navControls">
+			<button id="openDocs" title="Help Documents">
+				<img src="images/document.png">
+			</button>
+			<button id="openConfig" title="Configuration">
+				<img src="images/settings.png">
+			</button>
+			<button id="exitBtn" title="Exit VPGT">
+				<img src="images/cross.png">
+			</button>
+		</nav>
+		<!--End of top sidebar options-->
+
+		<!--Context Sensitive Content-->
+		<div id="selectionContainer" class="menuContainer">
+
+			<div id="selectionContent">
+				<!--No Element Selected: Generation Cntent-->
+				<div id="selectNone">
+					<div class="flex-container">
+
+						<h2 style="text-align: center;">Path Generation</h2>
+
+						<!--Required Inputs-->
+						<div>
+							<label for="latStart">Starting Latitude:</label>
+							<input type="number" id="latStart" name="latStart" class="genInput" onchange="moveMarker()"> <br>
+							<br>
+							<label for="longStart">Starting Longitude:</label>
+							<input type="number" id="lonStart" name="lonStart" class="genInput" onchange="moveMarker()"><br>
+						</div>
+						<!--end of reuqired inputs-->
+
+						<hr>
+
+						<!--Optional Inputs-->
+						<div>
+							<div class="sectionLabel">
+								<label for="optionalData">Optional Data</label>
+							<br> <br>
+							</div>
+							<label for="MMSI">MMSI:</label>
+							<input type="number" id="MMSI" name="MMSI" value="" class="optGenInput"
+								placeholder="9 digit number" > 
+							<br> <br> 
+							<label for="SOG">SOG:</label>
+							<input type="number" id="SOG" name="SOG" value="" class="optGenInput"
+								placeholder="positive number" > 
+							<br> <br>
+							<label for="COG">COG:</label>
+							<input type="number" id="COG" name="COG" value="" class="optGenInput"
+								placeholder="between 0 and 360"> 
+							<br> <br>
+							<label for="Heading">Heading:</label>
+							<input type="number" id="Heading" name="Heading" value="0" oninput="updateHeading()"
+								class="optGenInput" placeholder="between 0 and 360">
+							<br> <br>
+							<label for="pathLength">Length:</label>
+							<input type="number" id="Length" name="Length" value="10" class="optGenInput"
+								placeholder="8">
+							<hr>
+							<div class="sectionLabel">
+								<label for="eventData">Event Data</label>
+							<br> <br>
+							</div>
+							<label for="eventPercent">Likelihood:</label>
+							<input type="number" id="eventPercent" name="eventPercent" value="0" class="optGenInput"
+								placeholder="% Chance per node">
+						</div>
+						<!--End of optional inputs-->
+
+						<div id="generate"><button>Generate</button>
+
+						</div>
+					</div>
+				</div>
+				<!--End of no element selected menu-->
+
+				<!--Path selected menu-->
+				<div id="selectPath">
+					<div id="pathHeader">
+						<h2 id="pathName"></h2>
+						<button onclick="renamePath()">
+							<img src="images/edit.png">
+						</button>
+					</div>
+					<label for="pathColor">Path Color: </label><input type="color" id="pathColor" value="#00ff00"
+						onchange="updateSelectedPaths()"><br>
+					<label for="nodeColor">Node Color: </label><input type="color" id="nodeColor" value="#ff0000"
+						onchange="updateSelectedPaths()"><br>
+					<br>
+					<button onclick="download('formatted')">Download Formatted</button><br>
+					<button onclick="download('raw')" style="margin-top: 5px; margin-bottom: 5px;">Download Raw AIS</button><br>
+					<button onclick="deletePath()">Delete</button><br><br>
+					<span id="pathSelectionNum"></span>
+					<ul id="selectedPathsList"></ul>
+					<ul id="pathEvents"></ul>
+				</div>
+				<!--End of path selected menu-->
+
+				<!--Node selected menu-->
+				<div id="selectNode">
+					<h2>Node <span id="nodeNum">-1</span> Selected</h2>
+
+					<p>Node Events:</p>
+					<ul id="nodeEvents">
+
+					</ul>
+
+					<h4>Add Node Event</h4>
+
+					<label for="eventType">Event Type:</label>
+					<select id="eventType">
+						<!--<option selected="true" disabled>No Event</option>-->
+					</select>
+					<br>
+
+					<label for="eventDescription">Description</label>
+					<br>
+					<textarea id="eventDescription" placeholder="Enter event description here"></textarea>
+					<br>
+					<p>User Data:</p>
+					<div id="eventUserData"></div>
+					<button id="addField">Add Field</button><br>
+					<button id="addEvent">Add Event</button>
+
+				</div>
+				<!--End of Node Selected menu-->
+			</div>
+		</div>
+		<!--End of Context Sensitive content-->
+
+		<!--Permentant menu-->
+		<div id="permContainer" class="menuContainer">
+
+			<!--Plotting path from file-->
+			<div id="permContent">
+				<div class="menuHeader">Plot Path From File</div> <br>
+				<input type="file" id="pathFiles" /><br>
+				<button id="import" onclick="uploadPath()">Load From File</button>
+			</div>
+			<!--End of plotting path from file-->
+
+		</div>
+		<!--End of Permenant menu-->
+
+		
+		<div id="bottomBtns">
+			<button id="toggleDarkMode"><img src="images/night-mode.png"><img src="images/light-mode.png"></button>
+			<button id="tableOpenBtn">Path Management</button>
+		</div>
+		
+	</div>
+	<!--End of sidenav bar-->
+
+	<!--Sidebar collapse/expand button-->
+	<button id="navBtn">&#8250;</button>
+	<!--End of Sidebar collapse/expand button-->
+
+
+	<!--Overall Path Management Container-->
+
+	<div id="pathMgr">
+	
+		<button id="tableCloseBtn">X</button>
+		<h3>Path Management</h3>
+		<!--Path Filtering Area-->
+			<div>
+				<label class="">Search:</label>
+				<input type="text" id="Search" value="" placeholder="Search Paths">
+				<select name="SearchTarget" id="SearchTarget">
+					<option value="WholeTable">Whole Table</option>
+					<option value="PathName">Path Name</option>
+					<option value="MMSI">MMSI</option>
+				</select>
+				<button id="collapseFilter">Filter -</button>
+				<div id="filterContainer">
+					<!--Starting Latitude range-->
+					<div class="filterBox">
+						<label class="filterLabel">Starting Latitude:</label>
+						<input type="number" id="LatLow" name="LatLow" value="" placeholder="Minimum"  class="filterInput">
+						<input type="number" id="LatHigh" name="LatHigh" value="" placeholder="Maximum" class="filterInput" >
+					</div>
+					<!--Starting Longittude range-->
+					<div class="filterBox">
+						<label class="filterLabel">Starting Longitude:</label>
+						<input type="number" id="LongLow" name="LongLow" value="" placeholder="Minimum"  class="filterInput">
+						<input type="number" id="LongHigh" name="LongHigh" value="" placeholder="Maximum" class="filterInput" >
+					</div>
+					<!--Path length range-->
+					<div class="filterBox">
+						<label class="filterLabel">Path Length:</label>
+						<input type="number" id="LengthLow" name="LengthLow" value="" placeholder="Minimum (km)"  class="filterInput">
+						<input type="number" id="LengthHigh" name="LengthHigh" value="" placeholder="Maximum (km)" class="filterInput" >
+					</div>
+					<!--Average Speed Range-->
+					<div class="filterBox">
+						<label class="filterLabel">Average Speed:</label>
+						<input type="number" id="SpeedLow" name="SpeedLow" value="" placeholder="Minimum (knots)"  class="filterInput">
+						<input type="number" id="SpeedHigh" name="SpeedHigh" value="" placeholder="Maximum (knots)" class="filterInput" >
+					</div>
+					<!--Number of Events range-->
+					<div class="filterBox">
+						<label class="filterLabel">Number of Events:</label>
+						<input type="number" id="EventsLow" name="EventsLow" value="" placeholder="Minimum"  class="filterInput">
+						<input type="number" id="EventsHigh" name="EventsHigh" value="" placeholder="Maximum" class="filterInput" >
+					</div>
+				</div>
+			</div> 
+		<!--End of Path Filtering Area-->
+		<div id = "scroll"><table id="overallTable">
+			<thead><tr>
+				<th class="ptHeader"><span id="Name">Name <div class="arrow"></div></span></th>
+				<th class="ptHeader"><span id="MMSI">MMSI<div class="arrow"></span></th>
+				<th class="ptHeader"><span id="StartLat">Starting Latitude<div class="arrow"></div></span></th>
+				<th class="ptHeader"><span id="StartLon">Starting Longitude<div class="arrow"></div></span></th>
+				<th class="ptHeader"><span id="Length">Path Length (km)<div class="arrow"></div></span></th>
+				<th class="ptHeader"><span id="AverageSpeed">Average Speed (knots)<div class="arrow"></div></span></th>
+				<th class="ptHeader"><span id="numEvents">Number of Events<div class="arrow"></div></span></th>
+			</tr></thead>
+			<tbody id="pathTable"></tbody>
+		</table></div>
+		<br>
+		<div id="pathOptions">
+			<button onclick="download('formatted')" id="downloadFormatted" disabled="true">Download Formatted</button>
+			<button onclick="download('raw')" id="downloadRaw" disabled="true">Download Raw AIS</button>
+			<button onclick="download('formattedall')">Download All</button>
+			<button id="deleteSelected" onclick="deletePath()" disabled="true">Delete Selected</button>
+			<button id="deleteAll">Delete All</button>	
+
+
+		</div>
+
+	</div>
+
+	<!--End of Path Management Container-->
+
+
+	<!--Map-->
+
+		
+		<div id="map" class="map">
+			<script src="map.js"></script>
+			<script src="lib/tinyqueue.js"></script>
+			<script src="lib/polylabel.js"></script>
+		</div>
+		<div id="dragoverlay" class="dragoverlay"></div>
+
+	</div>
+
+	<!--End of Map-->
+</body>
+
+</html>

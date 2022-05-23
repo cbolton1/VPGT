@@ -1,0 +1,21 @@
+{
+    "srcPath": "./machinelearning/training/src",
+    "preprocessedPath": "./machinelearning/training/preprocessed",
+    "dropFeatures": [
+        "VesselName",
+        "IMO",
+        "CallSign",
+        "VesselType",
+        "Status",
+        "Length",
+        "Width",
+        "Draft",
+        "Cargo",
+        "TranscieverClass"
+    ],
+    "pad": false,
+    "getCSVStats": false,
+    "minLen": 40,
+    "maxLen": 50,
+    "outPathsCount": 20
+}

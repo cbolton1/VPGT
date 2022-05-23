@@ -1,0 +1,495 @@
+@import "colors.css";
+body {
+    background-color: var(--backgroundColor);
+    font-family: Arial;
+    overflow: hidden;
+}
+
+h3 {
+    text-align: center;
+}
+
+table, td,th {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+
+th {
+    background: var(--navColor);
+    color: var(--navText);
+}
+
+
+#pathMgr td, th {
+    cursor: pointer;
+    user-select: none;
+}
+
+#pathMgr thead{
+    position: sticky;
+    top: 0;
+}
+
+#pathMgr td {
+    box-shadow: inset 1px -1px #000;
+  }
+#pathMgr th {
+    box-shadow: inset 1px 1px #000, 0 1px #000;
+  }
+
+
+
+/* The side navigation menu */
+.sidenav {
+    height: 100%; 
+    width: 0; 
+    position: fixed; 
+    z-index: 3; 
+    top: 0; 
+    left: 0;
+    background-color: var(--navColor);
+    color: var(--navText); 
+    overflow-y: auto;
+    overflow-x: hidden;
+    transition: 0.5s; 
+}
+
+.sidenav hr {
+    display: block;
+    unicode-bidi: isolate;
+    margin-block-start: 0.5em;
+    margin-block-end: 0.5em;
+    margin-inline-start: auto;
+    margin-inline-end: auto;
+    overflow: hidden;
+    border-style: inset;
+    border-width: 1px;
+    width: 300px;
+}
+
+
+.sidenav nav {
+    background-color: var(--topNavColor);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.sidenav nav button {
+    border-style: none;
+    background-color: transparent;
+}
+
+.sidenav nav button:hover {
+    border-style: none;
+    background-color: var(--topNavHover);
+}
+
+.sidenav nav img {
+    height: 50px;
+}
+
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px var(--navColor);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--placeholder);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--yellowAccent);
+}
+  
+#navBtn {
+    background-color: var(--topNavColor);
+  
+    border: none;
+    border-radius: 0px 15px 15px 0px;
+    padding-bottom: 10px;
+    
+    height: 56px;
+    width: 40px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 3;
+    
+    font-size: 50px;
+    color: var(--navText);
+    line-height: 35px;
+  
+    transition: 0.5s; 
+}
+  
+
+/*The map*/
+.map {
+    height: 98vh;
+    width: 98vw;
+    margin: 0;
+    border: 0;
+    z-index: 1;
+}
+
+.countryLabel {
+    color: var(--navText);
+    border: none;
+    box-shadow: 0 0px 0px;
+    background: #00000000;
+}
+
+input[type="text"], textarea {
+    color: var(--placeholder);
+    background-color : var(--inputBackgroundColor); 
+}
+
+#pathMgr input[type="text"], textarea {
+    color: var(--navText);
+    background-color : var(--inputBackgroundColor);
+
+    
+}
+
+input[type="number"], textarea {
+    color: var(--placeholder);
+    background-color : var(--inputBackgroundColor); 
+    text-align: center;
+    font-weight: 550;
+}
+
+input[type="file"] {
+    color: var(--placeholder);
+    z-index: -1;
+    text-align: center;
+}
+
+::placeholder { 
+    color: var(--placeholder);
+    opacity: 0.8; 
+}
+
+button {
+    border: 2px solid var(--buttonBorder);
+    border-radius: 8px;
+    color: var(--buttonText);
+    font-size: 14px;
+    text-align: center;
+    cursor: pointer;
+    background-color: var(--buttonBackground); 
+    padding: 5px;
+    transition: 0.15s;
+}
+
+button:disabled {
+    color: #555555;
+    background-color: black; 
+    border-color: black;
+    cursor: default;
+}
+
+button:enabled:hover {
+    background-color: var(--buttonHighlight);
+    color: var(--yellowAccent);
+    border: 2px solid var(--buttonHighlight);
+}
+
+button:enabled:active {
+    color: lime;
+    background-color: var(--buttonPressed);
+}
+
+#pathHeader {
+    text-align: center;
+    margin: 20px 0;
+}
+
+#pathName {
+    text-align: center;
+    display: inline;
+}
+
+#pathHeader>button {
+    border: none;
+}
+
+#pathHeader>button>img {
+    filter: invert(1);
+}
+
+input#pathName {
+    position: relative;
+    margin: 0 auto;
+    
+}
+
+.menuContainer {
+    display: flex;
+    background-color: var(--menuColor);
+    color: var(--placeholder);
+
+    padding: 5px;
+    border-radius: 25px;
+}
+
+.menuHeader {
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    width: inherit;
+    
+}
+
+.ptHeader {
+    width: 10px;
+}
+
+#selectionContainer{
+    
+    width: 320px ;
+    height: fit-content;
+    position: relative;
+    left: 10px;
+    top: 20px;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    margin-top: -15px;
+    margin-bottom: -15px;
+}
+
+#selectNode>h2 {
+    text-align: center;
+}
+
+#selectionContent {
+    width: 100%;
+    margin: 0.25em;
+}
+
+#permContainer {
+    width: 320px ;
+    height: fit-content;
+    position: relative;
+    left: 10px;
+    top: 40px;
+}
+
+#permContent {
+    margin: 10px;
+    width: inherit;
+}
+
+#selectNone {
+    display: none;
+}
+
+#selectNode {
+    display: none;
+}
+
+#selectPath {
+    display: none;
+}
+
+#eventType {
+    width: 140px;
+}
+
+#generate {
+    text-align: center;
+    padding-bottom: 2px;
+    padding-top: 15px;
+}
+
+#toggleDarkMode>img {
+    width: 2ch;
+    height: 2ch;
+    filter: invert(1);
+}
+
+#eventUserData>input[type="text"] {
+    display: inline;
+    width: 30%;
+}
+
+#pathOptions {
+    display: flex;
+    width: 100%;
+    position: relative;
+    text-align: center;
+    justify-content: space-evenly;
+}
+
+#pathOptions button{
+    margin: auto;
+}
+
+#bottomBtns{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+#pathMgr {
+    
+
+    position: absolute;
+    top: 15vh;
+    left: 30vw;
+    width: fit-content;
+    height: 60%;
+    max-height: 60%;
+    
+
+    z-index: 2;
+
+    padding: 10px;
+    border-radius: 20px;
+
+    color: var(--navText);
+    background-color: var(--navColor);
+
+    display: none;
+    user-select: none;
+}
+
+#header {
+    width: 100%;
+    height: 5%;
+    z-index: 5;
+    background-color: var(--topNavColor);
+    color:lightcoral;
+    cursor: move;
+}
+
+#overallTable{
+    margin: auto;
+    width: 90%;
+    overflow-y: scroll;
+    height: 100px;
+}
+
+#tableCloseBtn {
+    position: absolute;
+    right: 2%;
+    top: 2%;
+}
+
+#filterContainer {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.filterBox {
+    display: flexbox;
+}
+.filterInput {
+    display: block;
+}
+
+.filterLabel {
+    display: block;
+}
+
+
+
+.genInput{
+    position: absolute;
+    right: 15px;
+    width: 130px;
+}
+.optGenInput{
+    position: absolute;
+    right:15px;
+    width: 205px;
+    
+}
+
+.sectionLabel {
+    text-align: center;
+}
+
+.dragoverlay {
+    border: 4px dashed red;
+    position: absolute;
+    top: 5%;
+    bottom: 5%;
+    right: 5%;
+    left: 5%;
+    opacity: 60%;
+    background: url("./images/json-file.png") no-repeat center;
+    background-size: 10%;
+    z-index: 4;
+    visibility: hidden;
+    pointer-events: none;
+    animation: bordermove 1s infinite;
+}
+@keyframes bordermove{
+    50% {border: 7px dashed red;}
+}
+
+.toast {
+    position: absolute;
+    min-width: 200px;
+    margin-left: -100px;
+    text-align: center;
+    padding: 20px;
+    border-radius: 20px;
+    background-color : var(--yellowAccent);
+    z-index: 20;
+    left: 50%;
+    bottom: -300px;
+    box-shadow: 0px 10px 15px 2px #00000071;
+    transition: 0.3s;
+}
+
+#scroll{
+    overflow-y: auto;
+    max-height: 50%;
+}
+
+
+@media only screen and (max-height: 600px) {
+    body {
+        font-size: small;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    body {
+        font-size: small;
+    }
+
+    #selectionContainer{
+        width: 220px ;
+        left: 10px;
+    }
+    
+    .genInput{
+        width: 90px;
+    }
+    .optGenInput{
+        width: 135px;
+    }
+    
+    #permContainer {
+
+        width: 220px;
+    }
+
+    #pathMgr input[type="text"], textarea {
+        width: 100px;
+    }
+
+}
